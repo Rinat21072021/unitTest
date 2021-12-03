@@ -1,7 +1,7 @@
 import {
     addNewBooks,
     makeHairstyle,
-    moveUser, moveUserToOtherHouse,
+    moveUser, moveUserToOtherHouse, removeBooks, replaceBooks,
     upgradeLaptop,
     UserType,
     UserWhithBooksType,
@@ -119,5 +119,55 @@ test("add new books to user", () => {
     expect(user.books).not.toBe(copyUser.books)
     expect(copyUser.books[4]).toBe('ts')
     expect(copyUser.books[5]).toBe('rest api')
+
+})
+test("replace book to user", () => {
+
+    let user: UserWhithLaptopType & UserWhithBooksType = {
+        name: 'Dymych',
+        hair: 32,
+        address: {
+            city: 'Minsk',
+            house: 12
+        },
+        laptop: {
+            title: 'ZenBook'
+        },
+        books: ['css', 'html', 'js', 'react']
+    }
+
+    const copyUser = replaceBooks(user, 'js', 'ts')
+
+
+    expect(user.laptop).toBe(copyUser.laptop)
+    expect(user.laptop.title).toBe(copyUser.laptop.title)
+    expect(user.address).toBe(copyUser.address)
+    expect(user.books).not.toBe(copyUser.books)
+    expect(copyUser.books[2]).toBe('ts')
+
+
+})
+test("remove book to user", () => {
+
+    let user: UserWhithLaptopType & UserWhithBooksType = {
+        name: 'Dymych',
+        hair: 32,
+        address: {
+            city: 'Minsk',
+            house: 12
+        },
+        laptop: {
+            title: 'ZenBook'
+        },
+        books: ['css', 'html', 'js', 'react']
+    }
+
+    const copyUser = removeBooks(user, 'js')
+
+    expect(user.laptop).toBe(copyUser.laptop)
+    expect(user.laptop.title).toBe(copyUser.laptop.title)
+    expect(user.address).toBe(copyUser.address)
+    expect(user.books).not.toBe(copyUser.books)
+    expect(copyUser.books[2]).toBe('react')
 
 })
